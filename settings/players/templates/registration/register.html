@@ -1,0 +1,38 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Players Database - Register</title>
+    <link rel="stylesheet" href="{% static 'players/css/login.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Chess Players Database</h1>
+    </header>
+    <section class="register-container">
+        <h2>Register</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="id_email">Email address:</label>
+            <input type="email" name="email" maxlength="254" autofocus="" required="" id="id_email">
+             <label for="id_phone">Phone:</label>
+            <input type="text" name="phone" maxlength="15" required="" id="id_phone">
+             <label for="id_full_name">Full name:</label>
+    <input type="text" name="full_name" maxlength="100" required="" id="id_full_name">
+            <label for="id_password1">Password:</label>
+    <input type="password" name="password1" autocomplete="new-password" required="" aria-describedby="id_password1_helptext" id="id_password1">
+              <label for="id_password2">Password confirmation:</label>
+    <input type="password" name="password2" autocomplete="new-password" required="" aria-describedby="id_password2_helptext" id="id_password2">
+            <div class="btn-container">
+                <button type="submit" class="btn">Register</button>
+            </div>
+        </form>
+        <p>Already have an account? <a href="{% url 'index' %}">Login</a></p>
+    </section>
+    <footer>
+        <p>&copy; 2024 Chess Players Database. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
