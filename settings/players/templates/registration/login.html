@@ -24,7 +24,7 @@
             </div>
             <div class="btn-container">
                 <button type="submit" class="btn">Login</button>
-                <a href="#" class="forgot-password">Forgot Password?</a>
+                <a href="{% url 'password_reset_page' %}" class="forgot-password">Forgot Password?</a>
             </div>
         </form>
         <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
