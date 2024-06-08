@@ -1,0 +1,22 @@
+{% extends "players/base.html" %}
+
+{% block section %}
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h2>Настройка уведомлений</h2>
+    <form method="post" action="">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="email">Электронная почта</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Введите ваш email">
+      </div>
+      <div class="form-group">
+        <label for="telegram">Telegram аккаунт</label>
+        <input type="text" class="form-control" id="telegram" name="telegram" placeholder="Введите ваш Telegram ID">
+      </div>
+      <button type="submit" class="btn btn-primary">Сохранить настройки</button>
+    </form>
+  </div>
+</div>
+{{response_data}}
+{% endblock %}
