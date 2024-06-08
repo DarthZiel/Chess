@@ -1,0 +1,60 @@
+{% extends 'players/base.html'%}
+{% load static %}
+{% load widget_tweaks %}
+{% block section %}
+
+<section class="main-content">
+  <div class="container-fluid mt-4">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form class="form-inline" action="{% url 'tournament:search' %}" hx-get="{% url 'tournament:search' %}" hx-trigger="click" hx-target="#table">
+          <div class="form-group mr-3">
+            <label for="search" class="sr-only">Search</label>
+            <input type="text" class="form-control" id="search" placeholder="Search..." name="name">
+          </div>
+          <div class="form-group mr-3">
+            <label for="status-filter" class="mr-2">Filter by Status:</label>
+            <select class="form-control" id="status-filter" name="status">
+              <option value="all">All Tournaments</option>
+              <option value="planned">Предстоящие</option>
+              <option value="in_progress">Текущие</option>
+              <option value="completed">Прошедшие</option>
+            </select>
+          </div>
+          <div class="form-group mr-3">
+            <label for="region-filter" class="mr-2">Filter by Region:</label>
+            <select class="form-control" id="region-filter" name="region">
+              <option value="all">All Regions</option>
+            {% for region in regions %}
+              <option value="{{region.title}}">{{region.title}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </div>
+</form>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <!-- You can add any additional buttons or forms here -->
+      </div>
+      <div class="col-md-6">
+        <!-- You can add any additional buttons or forms here -->
+      </div>
+    </div>
+
+    <div id="table" class="mt-4" hx-target="#table">
+      {% include 'tournament/partials/tournaments_table.html' %}
+    </div>
+  </div>
+</section>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <!-- Pagination logic if needed -->
+  </ul>
+</nav>
+
+
+{% endblock %}

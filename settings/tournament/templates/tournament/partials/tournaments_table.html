@@ -1,0 +1,25 @@
+<table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>
+              <a href="?sort_by=title&direction={% if direction_asc == 'asc' %}desc{% else %}asc{% endif %}">
+                <img src="https://cdn-icons-png.flaticon.com/512/130/130898.png" alt="" width="20" height="20">
+              </a>Название
+            </th>
+            <th>Начало</th>
+            <th>Конец</th>
+            <th>Регион</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tournament in tournaments %}
+          <tr>
+            <td><a href="{% url 'tournament:detail_tournament' tournament.id %}">{{ tournament.title }}</a></td>
+            <td>{{ tournament.start_date }}</td>
+            <td>{{ tournament.end_date }}</td>
+            <td>{{ tournament.region }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+

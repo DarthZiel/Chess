@@ -1,0 +1,41 @@
+{% load widget_tweaks %}
+<div class="container">
+    <h2>Player Records</h2>
+    <!-- Модальное окно -->
+                <form method="post" action="{% url 'add_player' %}" id="playerForm">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_fide_id">FIDE ID</label>
+                            {% render_field form.fide_id class="form-control" id="id_fide_id" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Last Name</label>
+                            {% render_field form.last_name class="form-control" id="id_last_name" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_first_name">First Name</label>
+                            {% render_field form.first_name class="form-control" id="id_first_name" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_gender">Gender</label>
+                            {% render_field form.gender class="form-control" id="id_gender" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_region">Region</label>
+                            {% render_field form.region class="form-control" id="id_region" %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/htmx.org@1.4.0/dist/htmx.min.js"></script>
+
+

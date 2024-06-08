@@ -1,0 +1,33 @@
+<tr hx-trigger='cancel' class=''>
+  <td>{{player.fide_id}}</td>
+  <td>{{player.last_name}}</td>
+  <td>{{ player.first_name }}</td>
+  <td>{{player.last_name_fide}}</td>
+  <td>{{player.first_name_fide}}</td>
+  <td>{{player.title}}</td>
+  <td>{{player.gender}}</td>
+  <td>{{player.federation}}</td>
+  <td>{{player.rating_classical}}</td>
+  <td>{{player.rating_rapid}}</td>
+  <td>{{player.rating_blitz}}</td>
+  <td>{{player.region}}</td>
+ <td>
+                <button class="edit-btn" hx-get="{% url 'get_player' player.id %}" hx-trigger="edit"
+                onClick="let editing = document.querySelector('.editing')
+                         if(editing) {
+                           Swal.fire({title: 'Already Editing',
+                                      showCancelButton: true,
+                                      confirmButtonText: 'Yep, Edit This Row!',
+                                      text:'Hey!  You are already editing a row!  Do you want to cancel that edit and continue?'})
+                           .then((result) => {
+                                if(result.isConfirmed) {
+                                   htmx.trigger(editing, 'cancel')
+                                   htmx.trigger(this, 'edit')
+                                }
+                            })
+                         } else {
+                            htmx.trigger(this, 'edit')
+                         }">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </td>
+        </tr>

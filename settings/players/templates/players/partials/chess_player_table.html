@@ -1,0 +1,70 @@
+<table class="table players-table">
+    <thead class="thead-light">
+        <tr>
+            <th>Выбрать</th>
+            <th>FIDE ID</th>
+            <th>
+                <a href="?sort_by=last_name&direction={% if direction_asc == 'asc' %}desc{% else %}asc{% endif %}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/130/130898.png" alt="" width="16" height="16">
+                </a>
+                Фамилия
+            </th>
+            <th>
+                <a href="?sort_by=first_name&direction={% if direction_asc == 'asc' %}desc{% else %}asc{% endif %}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/130/130898.png" alt="" width="16" height="16">
+                </a>
+                Имя
+            </th>
+            <th>Last Name (FIDE)</th>
+            <th>First Name (FIDE)</th>
+            <th>Title</th>
+            <th>Gender</th>
+            <th>Federation</th>
+            <th>Rating (Classical)</th>
+            <th>Rating (Rapid)</th>
+            <th>Rating (Blitz)</th>
+            <th>Region</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody hx-target="closest tr" hx-swap="outerHTML swap:1s">
+        {% for player in players %}
+        <tr>
+            <td>
+        <input type="checkbox" name="selected_players" value="{{ player.id }}">
+      </td>
+            <td>{{ player.fide_id }}</td>
+            <td>{{ player.last_name }}</td>
+            <td>{{ player.first_name }}</td>
+            <td>{{ player.last_name_fide }}</td>
+            <td>{{ player.first_name_fide }}</td>
+            <td>{{ player.title }}</td>
+            <td>{{ player.gender }}</td>
+            <td>{{ player.federation }}</td>
+            <td>{{ player.rating_classical }}</td>
+            <td>{{ player.rating_rapid }}</td>
+            <td>{{ player.rating_blitz }}</td>
+            <td>{{ player.region }}</td>
+            <td>
+                <button class="btn btn-primary edit-btn" hx-get="{% url 'get_player' player.id %}" hx-trigger="edit" onClick="let editing = document.querySelector('.editing'); if(editing) { Swal.fire({ title: 'Already Editing', showCancelButton: true, confirmButtonText: 'Yep, Edit This Row!', text:'Hey! You are already editing a row! Do you want to cancel that edit and continue?' }).then((result) => { if(result.isConfirmed) { htmx.trigger(editing, 'cancel'); htmx.trigger(this, 'edit'); } }) } else { htmx.trigger(this, 'edit') }">Edit</button>
+
+              <button class="btn btn-danger delete-btn"
+        hx-delete="{% url 'delete_player' player.id %}"
+        hx-confirm="Вы уверены, что хотите удалить этого игрока?"
+      hx-target="#table"
+       hx-swap="innerHTML"
+        hx-indicator="#table"
+>Delete</button>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+

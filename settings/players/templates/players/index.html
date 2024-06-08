@@ -1,13 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Выход</button>
-</form>
-</body>
-</html>
+{% extends 'players/base.html'%}
+    {% block section%}
+    <section class="main-content">
+        <h2>Tournaments List</h2>
+        <div class="filter-section">
+            <label for="region-filter">Filter by Region:</label>
+            <select id="region-filter">
+                <option value="all">All</option>
+                <option value="north">Алматинская область</option>
+                <option value="south">Астана</option>
+                <option value="east">Алматы</option>
+                <option value="west">Павлодарская область</option>
+            </select>
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="planned">Запланировано</option>
+                <option value="in_progress">Идет</option>
+                <option value="completed">Завершен</option>
+            </select>
+        </div>
+        <table class="tournament-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Region</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Чемпионат области до 18 лет</td>
+                    <td>10-02-2024</td>
+                    <td>Алматинская область</td>
+                    <td>Завершено</td>
+                </tr>
+                <tr>
+                    <td>Турнир в честь 8 марта</td>
+                    <td>08-03-2024</td>
+                    <td>Павлодарская область</td>
+                    <td>Завершено</td>
+                </tr>
+                <tr>
+                    <td>Блиц турнир в честь Наурыза</td>
+                    <td>22-03-2024</td>
+                    <td>Астана</td>
+                    <td>Запланировано</td>
+                </tr>
+                <!-- Добавьте здесь дополнительные строки для других турниров -->
+            </tbody>
+
+        </table>
+        <div class="pagination">
+            <!-- Здесь будет пагинация -->
+        </div>
+    </section>
+{% endblock %}

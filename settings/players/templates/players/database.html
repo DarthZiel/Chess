@@ -1,0 +1,104 @@
+{% extends 'players/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block section %}
+
+<section class="main-content">
+  <div class="container-fluid mt-4">
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form class="form-inline" action="{% url 'search' %}" hx-get="{% url 'search' %}" hx-trigger="click" hx-target="#table">
+          <div class="form-group mr-3">
+            <label for="search" class="sr-only">Search</label>
+            <input type="text" class="form-control" id="search" placeholder="Search..." name="query">
+          </div>
+          <div class="form-group mr-3">
+            <label for="sort" class="mr-2">Sort by:</label>
+            <select class="form-control" id="sort" name="field">
+              <option value="last_name">Фамилия</option>
+              <option value="fide_id">FIDE ID</option>
+              <!-- Добавьте другие поля для сортировки -->
+            </select>
+          </div>
+          <div class="form-group mr-3">
+            <label for="region-filter" class="mr-2">Region:</label>
+            <select class="form-control" id="region-filter" name="region">
+              <option value="all">All Regions</option>
+              {% for region in regions %}
+                <option value="{{ region.title }}">{{ region.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <button hx-get="{% url 'add_player' %}" hx-target="#modals-here .modal-content" hx-trigger="click" class="btn btn-success mr-2" id="add_player">Добавить игрока</button>
+      </div>
+      <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="input-group">
+            <input type="file" name="myfile" class="form-control">
+            <button type="submit" class="btn btn-info">Загрузить файл</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <form method="post" action="{% url 'add_players_to_tournament' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="tournamentSelect">Выберите турнир:</label>
+            <select class="form-control" id="tournamentSelect" name="tournament">
+              {% for tournament in tournaments %}
+              <option value="{{ tournament.id }}">{{ tournament.title }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div id="table" class="mt-4" hx-target="#table">
+            {% include 'players/partials/chess_player_table.html' %}
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-3">Добавить выбранных игроков в турнир</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    </li>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+    <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+      <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+    </li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+<div id="modals-here" class="modal modal-blur fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<script src="{% static 'players/js/create_player.js' %}"></script>
+
+{% endblock %}

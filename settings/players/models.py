@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -29,7 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     phone = models.CharField(max_length=15)
     full_name = models.CharField(max_length=100)
-
+    is_database_admin = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
@@ -37,4 +38,30 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+GENDER = [('FEMALE', 'FEMALE'), ('MALE', 'MALE')]
+
+
+class ChessPlayers(models.Model):
+    fide_id = models.CharField(max_length=20, unique=True)
+    last_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=20)
+    last_name_fide = models.CharField(max_length=20)
+    first_name_fide = models.CharField(max_length=20)
+    title = models.CharField(max_length=2)
+    gender = models.CharField(choices=GENDER, max_length=14)
+    federation = models.CharField(max_length=3)
+    rating_classical = models.CharField(max_length=4)
+    rating_rapid = models.CharField(max_length=4)
+    rating_blitz = models.CharField(max_length=4)
+    region = models.ForeignKey('Region', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f'{self.last_name} {self.first_name}'
+class Region(models.Model):
+    title = models.CharField('Название', max_length=40)
+
+    def __str__(self):
+        return self.title
 

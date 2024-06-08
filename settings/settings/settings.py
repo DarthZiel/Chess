@@ -25,12 +25,14 @@ SECRET_KEY = "django-insecure-&wjb4zw1129a)l7=i*8&g1mhqh9wqzvn^7)2m$b505owp+kjd(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+   # "unfold",
+   # "django_boot.apps.DjangoBootConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -38,7 +40,32 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "players.apps.PlayersConfig",
+    "tournament.apps.TournamentConfig",
+
+    'debug_toolbar',
+    'widget_tweaks',
+    'account.apps.AccountConfig',
+    'django_celery_beat',
+    'django_celery_results',
+
+   # "unfold.contrib.filters",  # optional, if special filters are needed
+    #"unfold.contrib.forms",  # optional, if special form elements are needed
+    #"unfold.contrib.import_export",  # optional, if django-import-export package is used
+   # "unfold.contrib.guardian",  # optional, if django-guardian package is used
+   # "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
+
 ]
+
+
+# django setting.
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -48,8 +75,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
-
+INTERNAL_IPS = [
+    #'127.0.0.1',
+]
 ROOT_URLCONF = "settings.urls"
 
 TEMPLATES = [
@@ -123,7 +153,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGOUT_REDIRECT_URL = '/'
-
+LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
@@ -135,3 +165,34 @@ EMAIL_HOST_PASSWORD = 'asykpwblrrmanzim'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
+
+
+
+
+
+
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = 'django-cache'
+# This configures Redis as the datastore between Django + Celery
+CELERY_BROKER_URL = 'redis://localhost:6380/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6380/1'
+
+# Дополнительные настройки Celery
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+CELERY_CACHE_BACKEND = 'default'
+
+
+
+
+# Хранилище расписания задач Celery Beat
+
+
+# Укажите файл для хранения расписания
+CELERY_BEAT_SCHEDULE_FILENAME = 'celerybeat-schedule'
+
+# Настройки временной зоны
+CELERY_TIMEZONE = 'UTC'

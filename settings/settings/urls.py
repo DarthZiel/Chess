@@ -20,6 +20,11 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('players.urls')),
+    path('tournaments/', include('tournament.urls','tournament')),
+    path('account/', include('account.urls', 'account')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout')
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
+
+

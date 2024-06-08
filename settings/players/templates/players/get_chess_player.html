@@ -1,0 +1,33 @@
+<tr>
+  <form method="post">
+    {% csrf_token %}
+     <input type="hidden" name="_method" value="PUT">
+    <td><input type="text" name="fide_id" value="{{ player.fide_id }}"></td>
+    <td><input type="text" name="last_name" value="{{ player.last_name }}"></td>
+    <td><input type="text" name="first_name" value="{{ player.first_name }}"></td>
+    <td>{{player.last_name_fide}}</td>
+    <td>{{player.first_name_fide}}</td>
+    <td>{{player.title}}</td>
+    <td>{{player.gender}}</td>
+    <td>{{player.federation}}</td>
+    <td>{{player.rating_classical}}</td>
+    <td>{{player.rating_rapid}}</td>
+    <td>{{player.rating_blitz}}</td>
+    <td><label for="id_region">Region:</label>
+      <select name="region" class="form-control" required="" id="id_region">
+  <option value="{{player.region.id}}" selected="">{{player.region}}</option>
+         {% for region in regions %}
+                <option value="{{ region.title }}">{{ region.title }}</option>
+              {% endfor %}
+
+</select></td>
+    <td>
+      <button type="button" class="btn btn-danger" hx-get="{% url 'update_player' player.pk %}">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-success" hx-post="{% url 'update_player' player.pk %}" hx-include="closest tr" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>Save</button>
+    </td>
+  </form>
+</tr>
+
+

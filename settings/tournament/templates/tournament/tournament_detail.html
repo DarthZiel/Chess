@@ -1,0 +1,27 @@
+{% extends 'players/base.html' %}
+{% block section %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{{ tournament.title }}</h2>
+      <p><strong>Description:</strong> {{ tournament.description }}</p>
+      <p><strong>Start Date:</strong> {{ tournament.start_date }}</p>
+      <p><strong>End Date:</strong> {{ tournament.end_date }}</p>
+      <p><strong>Gender:</strong> {{ tournament.get_gender_display }}</p>
+      <p><strong>Has Age Limit:</strong> {% if tournament.has_age_limit %}Yes{% else %}No{% endif %}</p>
+      {% if tournament.has_age_limit %}
+      <p><strong>Minimum Age:</strong> {{ tournament.min_age }}</p>
+      <p><strong>Maximum Age:</strong> {{ tournament.max_age }}</p>
+      {% endif %}
+      <p><strong>Organizer:</strong> {{ tournament.organizer }}</p>
+      <p><strong>Region:</strong> {{ tournament.region }}</p>
+      <h3>Players:</h3>
+      <ul>
+        {% for player in tournament.players.all %}
+        <li>{{ player }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

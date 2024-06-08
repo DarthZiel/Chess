@@ -1,0 +1,56 @@
+[
+    {
+        "model": "players.ChessPlayers",
+        "pk": 1,
+        "fields": {
+            "fide_id": "123456",
+            "last_name": "Doe",
+            "first_name": "John",
+            "last_name_fide": "Doe",
+            "first_name_fide": "John",
+            "title": "GM",
+            "gender": "MALE",
+            "federation": "US",
+            "rating_classical": "2800",
+            "rating_rapid": "2750",
+            "rating_blitz": "2700",
+            "region": "Абайская область"
+        }
+    },
+    {
+        "model": "players.ChessPlayers",
+        "pk": 2,
+        "fields": {
+            "fide_id": "654321",
+            "last_name": "Smith",
+            "first_name": "Jane",
+            "last_name_fide": "Smith",
+            "first_name_fide": "Jane",
+            "title": "IM",
+            "gender": "FEMALE",
+            "federation": "UK",
+            "rating_classical": "2500",
+            "rating_rapid": "2550",
+            "rating_blitz": "2600",
+            "region": "Акмолинская область"
+        }
+    },
+    {
+        "model": "players.ChessPlayers",
+        "pk": 3,
+        "fields": {
+            "fide_id": "987654",
+            "last_name": "Johnson",
+            "first_name": "Michael",
+            "last_name_fide": "Johnson",
+            "first_name_fide": "Michael",
+            "title": "FM",
+            "gender": "MALE",
+            "federation": "CA",
+            "rating_classical": "2200",
+            "rating_rapid": "2150",
+            "rating_blitz": "2100",
+            "region": "Жамбылская область"
+        }
+    }
+]

@@ -1,0 +1,80 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header, nav, footer {
+    background-color: #2c3e50; /* Синий цвет */
+    color: #fff;
+    padding: 10px 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-section label {
+    margin-right: 10px;
+}
+
+.tournament-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tournament-table th, .tournament-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tournament-table th {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+.tournament-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="modal" class="uk-modal" style="display:block;">
+	<div class="uk-modal-dialog uk-modal-body">
+		<h2 class="uk-modal-title">Modal Dialog</h2>
+		<p>This modal dialog was loaded dynamically by HTMX.</p>
+
+		<form _="on submit take .uk-open from #modal">
+			<div class="uk-margin">
+				<input class="uk-input" placeholder="What is Your Name?">
+			</div>
+			<button type="button" class="uk-button uk-button-primary">Save Changes</button>
+			<button
+				id="cancelButton"
+				type="button"
+				class="uk-button uk-button-default"
+				_="on click take .uk-open from #modal wait 200ms then remove #modal">Close</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>
