@@ -14,6 +14,19 @@
         <label for="telegram">Telegram аккаунт</label>
         <input type="text" class="form-control" id="telegram" name="telegram" placeholder="Введите ваш Telegram ID">
       </div>
+      <div class="form-group">
+        <label for="notification_type">Тип уведомлений</label>
+        <select class="form-control" id="notification_type" name="notification_type">
+          <option value="all">Все уведомления</option>
+          <option value="personalized">Персонализированные уведомления</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="unsubscribe" name="unsubscribe">
+        <label class="form-check-label" for="unsubscribe">
+          Отказаться от рассылки
+        </label>
+      </div>
       <button type="submit" class="btn btn-primary">Сохранить настройки</button>
     </form>
   </div>

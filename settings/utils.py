@@ -13,9 +13,22 @@ mongo_client = get_mongo_client()
 mongo_db = mongo_client['Notify']
 
 
-
 def set_settings(user_id, data):
     collection = mongo_db['social_media']
-    data['_id'] = ObjectId()  # Generate a new ObjectId for the document
-    result = collection.insert_one(data)  # Insert the data into the collection
+    filt = {"user_id": user_id}
+
+    if collection.find_one(filt):
+        # Исправление фильтра для update_one
+        result = collection.update_one(filt, {"$set": data})
+    else:
+        data['user_id'] = user_id  # Убедитесь, что user_id добавлен в новый документ
+        data['_id'] = ObjectId()  # Создание нового ObjectId для документа
+        result = collection.insert_one(data)  # Вставка данных в коллекцию
+
     return result
+
+
+def delete_setting(user_id):
+    collection = mongo_db['social_media']
+    filt = {"user_id": user_id}
+    collection.find_one_and_delete(filt)

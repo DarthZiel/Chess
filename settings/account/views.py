@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from tournament.models import Tournament, Region
 from tournament.forms import TournamentForm
 from players.models import ChessPlayers
-from utils import mongo_db, set_settings
+from utils import mongo_db, set_settings, delete_setting
 
 
 def add_tournament(request):
@@ -106,14 +106,21 @@ def download_players_excel(request, tournament_id):
 
 def notifications(request):
     if request.method == 'POST':
+        unsubscribe = request.POST.get('unsubscribe')
         email = request.POST.get('email')
         telegram = request.POST.get('telegram')
-        data = {}
-        if email:
-            data['email'] = email
-        if telegram:
-            data['telegram'] = telegram
-        if data:
-            set_settings(request.user.id, data)
+        notification_type = request.POST.get('notification_type')
+        data = {'user_id': request.user.id}
+        if unsubscribe == 'on':
+            delete_setting(request.user.id)
+        else:
+            if email:
+                data['email'] = email
+            if telegram:
+                data['telegram'] = telegram
+            if notification_type:
+                data['notification_type'] = notification_type
+            if data:
+                set_settings(request.user.id, data)
     context = {}
     return render(request, 'account/check.html', context=context)
